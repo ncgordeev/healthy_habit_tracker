@@ -9,9 +9,11 @@ class HabitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Habit
-        fields = '__all__'
+        fields = "__all__"
         validators = [
-            HabitValidator(is_nice_habit='is_nice_habit',
-                           related_habit='related_habit',
-                           reward='reward')
+            HabitValidator(
+                is_nice_habit="is_nice_habit",
+                related_habit="related_habit",
+                reward="reward",
+            )
         ]

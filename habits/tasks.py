@@ -13,8 +13,7 @@ def check_habits_for_action():
         if not habit.next_date:
             if habit.time < now_time:
                 send_telegram_message(habit)
-                habit.next_date = now_date + timedelta(
-                    days=int(habit.periodicity))
+                habit.next_date = now_date + timedelta(days=int(habit.periodicity))
                 habit.save()
         elif habit.next_date <= now_date:
             send_telegram_message(habit)
