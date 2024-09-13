@@ -24,13 +24,13 @@ class Habit(models.Model):
     place = models.CharField(max_length=160,
                              verbose_name='Место',
                              help_text='Где необходимо выполнять привычку')
-    time = models.DateTimeField(
-        verbose_name='Время', help_text='Когда необходимо выполнять привычку')
+    time = models.TimeField(verbose_name='Время',
+                            help_text='Когда необходимо выполнять привычку')
     action = models.CharField(max_length=160,
                               verbose_name='Действие',
                               help_text='Действие представляющее привычку')
     is_nice_habit = models.BooleanField(
-        default=True,
+        default=False,
         verbose_name='Признак приятной привычки',
         help_text='Приятная привычка')
     related_habit = models.ForeignKey(
@@ -65,8 +65,9 @@ class Habit(models.Model):
         help_text='Выполнить привычку в этот день')
 
     def __str__(self):
-        return f'Я буду {self.action} в {self.time} в {self.place}'
+        return self.action
 
     class Meta:
         verbose_name = 'Привычка'
         verbose_name_plural = 'Привычки'
+        ordering = ['action']

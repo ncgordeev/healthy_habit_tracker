@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'users',
     'drf_yasg',
+    'django_celery_beat',
+    'corsheaders',
+    'users',
     'habits',
 ]
 
@@ -150,3 +152,32 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+CELERY_BROKER_URL = os.getenv('REDIS')
+CELERY_RESULT_BACKEND = os.getenv('REDIS')
+
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CELERY_BEAT_SCHEDULE = {
+    'task-habit-send-tg': {
+        'task': 'habits.tasks.check_habits_for_action',  # Путь к задаче
+        'schedule': timedelta(
+            minutes=1
+        ),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}
+
+TELEGRAM_BOT_API_KEY = os.getenv('TELEGRAM_BOT_API_KEY')
+
+CORS_ALLOWED_ORIGINS = [
+    "https://localhost:8000",  # Замените на адрес фронтенд-сервера
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://127.0.0.1:8000',  # Замените на адрес фронтенд-сервера
+    'http://localhost:8000'  # и добавьте адрес бэкенд-сервера
+]
+
+CORS_ALLOW_ALL_ORIGINS = False

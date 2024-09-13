@@ -13,8 +13,9 @@ def time_limit(value):
 
 def periodicity_limit(value):
     if int(value) > 7:
-        raise serializers.ValidationError(
-            'Нельзя выполнять привычку реже, чем 1 раз в 7 дней')
+        raise serializers.ValidationError('Нельзя выполнять привычку реже, чем 1 раз в 7 дней!')
+    if int(value) <= 0:
+        raise serializers.ValidationError('Периодичность выполнения не может быть меньше или равна нулю!')
 
 
 class HabitValidator:
