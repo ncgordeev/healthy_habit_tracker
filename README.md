@@ -126,3 +126,13 @@ beat:
     ```
     celery -A config beat -l INFO -S django
     ```
+### Для запуска проекта с помощью Docker:
+
+- установите Docker себе в систему, перейдя по [ссылке](https://docs.docker.com/engine/install/)
+- для сборки проекта и запуска введите команду:
+
+```text
+docker-compose up -d --build
+```
+
+- перейдите по адресу: [http://127.0.0.1:8000](http://127.0.0.1:8000)
